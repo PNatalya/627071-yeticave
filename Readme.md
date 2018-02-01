@@ -1,7 +1,7 @@
 # Личный проект «YetiCave»
 
 * Студент: [Наталья Плотникова](https://up.htmlacademy.ru/php/4/user/627071).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Зубов](https://github.com/captain-zsa).
 
 ---
 
