@@ -45,7 +45,7 @@ $ads = [
 ];
 function format_sum($price) {
 	$price = ceil($price);
-	If ($price > 1000) {
+	If ($price >= 1000) {
 		$price = number_format ( $price , 0 , "." , " " );
 	};
 	$price .= "&nbsp;&#8381";
