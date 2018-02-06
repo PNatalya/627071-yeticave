@@ -44,8 +44,13 @@ $ads = [
 	
 ];
 function format_sum($price) {
-	$price_str = number_format ( $price , 0 , "." , " " );
-	return $price_str;
+	$price = ceil($price);
+	If ($price > 1000) {
+		$price = number_format ( $price , 0 , "." , " " );
+	};
+	$price .= "&nbsp;&#8381";
+
+	return $price;
 }
 
 ?>
@@ -135,7 +140,7 @@ function format_sum($price) {
 						<div class="lot__state">
 							<div class="lot__rate">
 								<span class="lot__amount">Стартовая цена</span>
-								<span class="lot__cost"><?=format_sum($val['price']);?><b class="rub">р</b></span>
+								<span class="lot__cost"><?=format_sum($val['price']);?></span>
 							</div>
 							<div class="lot__timer timer">
 
