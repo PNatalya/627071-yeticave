@@ -34,7 +34,7 @@ $ads = [
 	ad5 => [
 	'name' => 'Куртка для сноуборда DC Mutiny Charocal',
 	'category' => 'Одежда',
-	'price' => 999.49,
+	'price' => 7500,
 	'img' => 'img/lot-5.jpg'
 	],
 	ad6 => [
