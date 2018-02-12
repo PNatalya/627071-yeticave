@@ -47,7 +47,7 @@
 								<span class="lot__cost"><?=format_sum(strip_tags($val['price']));?></span>
 							</div>
 							<div class="lot__timer timer">
-
+								<span><?=$timelot;?></span>
 							</div>
 						</div>
 					</div>

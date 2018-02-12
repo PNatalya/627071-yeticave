@@ -1,10 +1,17 @@
 <?php
+date_default_timezone_set("Europe/Moscow");
 require_once('functions.php');
 
 $is_auth = (bool) rand(0, 1);
 
 $user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
+
+$timelot = (mktime(0, 0, 0, date("m")  , date("d")+1, date("Y"))) - time();
+$hour = floor($timelot/3600);
+$minut = floor(($timelot%3600)/60);
+$timelot = sprintf("%02d:%02d", $hour, $minut);
+
 $category = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
 $ads = [
 	ad1 => [
@@ -55,7 +62,7 @@ function format_sum($price) {
 	return $price;
 }
 
-$page_content = Include_Template('templates/index.php', ['ads'=> $ads]);
+$page_content = Include_Template('templates/index.php', ['ads'=> $ads, 'timelot'=> $timelot]);
 
 $layout_content = Include_Template('templates/layout.php', ['title' => 'Главная', 'content' => $page_content, 'category'=> $category ]);
 
