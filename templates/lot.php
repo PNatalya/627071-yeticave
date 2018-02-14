@@ -6,7 +6,7 @@ require_once('./functions.php');
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title><?=$lot['name'];?></title>
+  <title><?=htmlspecialchars($lot['name']);?></title>
   <link href="css/normalize.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
 </head>
@@ -24,7 +24,7 @@ require_once('./functions.php');
   </nav>
   <section class="lot-item container">
 	<?php if (isset($lot)) :?>
-    <h2><?=$lot['name'];?></h2>
+    <h2><?=htmlspecialchars($lot['name']);?></h2>
     <div class="lot-item__content">
       <div class="lot-item__left">
         <div class="lot-item__image">

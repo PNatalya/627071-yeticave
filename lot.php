@@ -11,7 +11,7 @@ if (isset($_GET['lot_id'])) {
 			break;
 		}
 	}
-	$Title=$lot['name'];
+	$Title=htmlspecialchars($lot['name']);
 
 
 }
