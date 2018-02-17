@@ -11,9 +11,6 @@ if (isset($_GET['lot_id'])) {
 			break;
 		}
 	}
-	$Title=htmlspecialchars($lot['name']);
-
-
 }
 if (!$lot) {
 	http_response_code(404);
@@ -24,6 +21,7 @@ if (!$lot) {
 else {
 }	
 
+$Title=htmlspecialchars($lot['name']);
 $page_content = Include_Template('templates/lot.php', ['lot'=> $lot, 'category'=> $category ]);
 $layout_content = Include_Template('templates/layout.php', ['title' => $Title, 'content' => $page_content, 'category'=> $category ]);
 print($layout_content);
