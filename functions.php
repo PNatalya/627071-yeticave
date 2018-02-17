@@ -1,4 +1,27 @@
 <?php
+session_start();
+
+function auth_user($user) {
+	session_start();
+	$user = null;
+	if (isset($_SESSION['user'])) {
+		$user['is_auth'] = True;
+		$user['user_name'] = $_SESSION['user'][name];
+		$user['user_avatar'] = 'img/user.jpg';
+	}
+	return $user;
+}
+
+
+function search_user($email, $users) {
+	$user = null;
+	foreach ($users as $user) {
+		if ($user['email'] == $email) {
+			break;
+		}
+	}
+	return $user;
+}
 
 function format_sum($price) {
 	$price = ceil($price);

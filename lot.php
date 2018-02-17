@@ -2,6 +2,9 @@
 require_once('functions.php');
 require_once('data.php');
 
+$user = null;
+$user = auth_user($user);
+
 $lot = null;
 if (isset($_GET['lot_id'])) {
 	$lot_id = $_GET['lot_id'];
@@ -32,12 +35,11 @@ else {
 	}
 	$value = json_encode($array_value);
 	setcookie($name, $value, $expire, $path);
-
 }	
 
 $Title=htmlspecialchars($lot['name']);
-$page_content = Include_Template('templates/lot.php', ['lot'=> $lot, 'category'=> $category ]);
-$layout_content = Include_Template('templates/layout.php', ['title' => $Title, 'content' => $page_content, 'category'=> $category ]);
+$page_content = Include_Template('templates/lot.php', ['lot'=> $lot, 'user' => $user, 'category'=> $category ]);
+$layout_content = Include_Template('templates/layout.php', ['title' => $Title, 'user' => $user, 'content' => $page_content, 'category'=> $category ]);
 print($layout_content);
 
 ?>

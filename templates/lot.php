@@ -43,7 +43,8 @@ require_once('./functions.php');
           равнодушным.</p>
       </div>
       <div class="lot-item__right">
-        <div class="lot-item__state">
+		<?php if ((isset($user['is_auth'])) && ($user['is_auth'])): ?> 
+         <div class="lot-item__state">
           <div class="lot-item__timer timer">
             <?=timelot((mktime(0, 0, 0, date("m")  , date("d")+1, date("Y"))));?>
           </div>
@@ -63,7 +64,8 @@ require_once('./functions.php');
             </p>
             <button type="submit" class="button">Сделать ставку</button>
           </form>
-        </div>
+		 </div>
+ 		<?php endif; ?>
         <div class="history">
           <h3>История ставок (<span>10</span>)</h3>
           <table class="history__list">
