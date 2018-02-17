@@ -19,6 +19,20 @@ if (!$lot) {
 	exit(); 
 }
 else {
+	$name = "openLots";
+	$expire = strtotime("+30 days");;
+	$path = "/";
+	$array_value = [];
+	
+	if (isset($_COOKIE[$name])) {
+		$array_value = json_decode($_COOKIE[$name]);
+	}
+	If (!in_array($lot_id, $array_value)) {
+		$array_value[] = $lot_id;
+	}
+	$value = json_encode($array_value);
+	setcookie($name, $value, $expire, $path);
+
 }	
 
 $Title=htmlspecialchars($lot['name']);
