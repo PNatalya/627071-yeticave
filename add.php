@@ -7,8 +7,9 @@ $user = auth_user($user);
 
 if ((!isset($user['is_auth'])) || (!$user['is_auth'])) {
 	http_response_code(403);
-	header( 'HTTP/1.1 403 Forbidden', true, 403 ); 
-	header('Location:./login.php');
+/*	header( 'HTTP/1.1 403 Forbidden', true, 403 ); 
+	header('Location:./login.php');*/
+	echo("Доступ запрещен");
 	exit(); 
 }
 
