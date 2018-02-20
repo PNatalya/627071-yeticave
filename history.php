@@ -2,6 +2,9 @@
 require_once('functions.php');
 require_once('data.php');
 
+$user = null;
+$user = auth_user($user);
+
 $new_array=[];
 $array_value=[];
 if (isset($_COOKIE['openLots'])) {

@@ -2,6 +2,16 @@
 require_once('functions.php');
 require_once('data.php');
 
+$user = null;
+$user = auth_user($user);
+
+if ((!isset($user['is_auth'])) || (!$user['is_auth'])) {
+	http_response_code(403);
+/*	header( 'HTTP/1.1 403 Forbidden', true, 403 ); 
+	header('Location:./login.php');*/
+	echo("Доступ запрещен");
+	exit(); 
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$lot = $_POST;
@@ -52,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$page_content = include_template('templates/add.php', ['lot' => $lot, 'errors' => $errors, 'dict' => $dict, 'category'=> $category ]);
 	}
 	else {
-		$page_content = include_template('templates/lot.php', ['lot'=> $lot, 'category'=> $category ]);
+		$page_content = include_template('templates/lot.php', ['lot'=> $lot, 'user' => $user, 'category'=> $category ]);
 	}	
 	
 }
@@ -68,7 +78,7 @@ else {
 	$Title= "Добавление лота";
 }
 
-$layout_content = Include_Template('templates/layout.php', ['title' => $Title, 'content' => $page_content, 'category'=> $category ]);
+$layout_content = Include_Template('templates/layout.php', ['title' => $Title, 'user' => $user, 'content' => $page_content, 'category'=> $category ]);
 
 print($layout_content);
 ?>
