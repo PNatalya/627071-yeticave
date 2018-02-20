@@ -51,7 +51,7 @@
         <ul class="nav__list container">
 			<?php Foreach ($category as $key=> $val): ?> 
 				<li class="nav__item">
-					<a href="all-lots.html"><?=$val?></a>
+					<a href=<?="all-lots.php?cur_cat_id=".$key;?>><?=$val?></a>
 				</li>
 			<?php endforeach; ?>			
         </ul>

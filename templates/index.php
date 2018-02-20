@@ -9,22 +9,22 @@
         <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
         <ul class="promo__list">
             <li class="promo__item promo__item--boards">
-                <a class="promo__link" href="all-lots.html">Доски и лыжи</a>
+                <a class="promo__link" href="all-lots.php?cur_cat_id=0">Доски и лыжи</a>
             </li>
             <li class="promo__item promo__item--attachment">
-                <a class="promo__link" href="all-lots.html">Крепления</a>
+                <a class="promo__link" href="all-lots.php?cur_cat_id=1">Крепления</a>
             </li>
             <li class="promo__item promo__item--boots">
-                <a class="promo__link" href="all-lots.html">Ботинки</a>
+                <a class="promo__link" href="all-lots.php?cur_cat_id=2">Ботинки</a>
             </li>
             <li class="promo__item promo__item--clothing">
-                <a class="promo__link" href="all-lots.html">Одежда</a>
+                <a class="promo__link" href="all-lots.php?cur_cat_id=3">Одежда</a>
             </li>
             <li class="promo__item promo__item--tools">
-                <a class="promo__link" href="all-lots.html">Инструменты</a>
+                <a class="promo__link" href="all-lots.php?cur_cat_id=4">Инструменты</a>
             </li>
             <li class="promo__item promo__item--other">
-                <a class="promo__link" href="all-lots.html">Разное</a>
+                <a class="promo__link" href="all-lots.php?cur_cat_id=5">Разное</a>
             </li>
         </ul>
     </section>

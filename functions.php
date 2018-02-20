@@ -14,13 +14,14 @@ function auth_user($user) {
 
 
 function search_user($email, $users) {
-	$user = null;
+	$result = null;
 	foreach ($users as $user) {
 		if ($user['email'] == $email) {
+			$result = $user;
 			break;
 		}
 	}
-	return $user;
+	return $result;
 }
 
 function format_sum($price) {
@@ -43,13 +44,11 @@ function timelot($timelot) {
 }
 
 function Include_Template($filename, $arr = array()) {
-	
 	if (file_exists($filename)) {	
 		ob_start();
 		extract($arr);
-		require_once($filename);
+		require($filename);
 	};
-	
 	return ob_get_clean();
 }
 

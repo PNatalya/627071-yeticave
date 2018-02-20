@@ -1,23 +1,8 @@
-<?php
-require_once('./functions.php');
-?>
-
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title><?=htmlspecialchars($lot['name']);?></title>
-  <link href="css/normalize.min.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
-</head>
-<body>
-
-<main>
   <nav class="nav">
       <ul class="nav__list container">
 		<?php Foreach ($category as $key=> $val): ?> 
 			<li class="nav__item">
-				<a href="all-lots.html"><?=$val?></a>
+				<a href=<?="all-lots.php?cur_cat_id=".$key;?>><?=$val?></a>
 			</li>
 		<?php endforeach; ?>			
     </ul>
@@ -128,7 +113,3 @@ require_once('./functions.php');
 	<?php endif ;?>
 	
   </section>
-</main>
-
-</body>
-</html>
