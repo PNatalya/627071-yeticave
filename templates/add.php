@@ -69,15 +69,16 @@
     </div> 
 	<?php 
 		$classname = "" ;
+		$classname1 = "" ;
 		if  ((isset($lot['img'])) && (!isset($errors['photo2'])))  {
 			$classname ="form__item--uploaded";}
 		  $imgname = isset($lot['img']) ? $lot['img'] : ""; 
 		  $errortext = "";
 		  if (isset($errors['photo2'])) {
-			$errortext = $errors['photo2']; }
-			$classname1 = "form__item--invalid" ;
+			$errortext = $errors['photo2']; 
+			$classname1 = "form__item--invalid" ;}
 		  ?>
-    <div class="form__item form__item--file <?=$classname;?>"> <!-- form__item--uploaded -->
+    <div class="form__item form__item--file <?=$classname;?> <?=$classname1;?> "> <!-- form__item--uploaded -->
       <label>Изображение</label>
       <div class="preview">
         <button class="preview__remove" type="button">x</button>
