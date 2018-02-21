@@ -13,22 +13,39 @@
     <ul class="nav__list container">
 		<?php Foreach ($category as $key=> $val): ?> 
 			<li class="nav__item">
-				<a href="all-lots.html"><?=$val?></a>
+				<a href=<?="all-lots.php?cur_cat_id=".$key;?>><?=$val?></a>
 			</li>
 		<?php endforeach; ?>			
     </ul>
   </nav>
   <form class="form container <?php if(count($errors)) echo 'form--invalid'; ?>" action="login.php" method="post"> <!-- form--invalid -->
     <h2>Вход</h2>
-    <div class="form__item <?php if (isset($errors['email'])) echo 'form__item--invalid';?>"> <!-- form__item--invalid -->
+  	<?php 
+		$classname = "" ;
+		$errortext = "";
+		if (isset($errors['email'])) {
+			$classname = "form__item--invalid" ;
+			$errortext = $errors['email']; }
+		$value = "";
+		if (isset($user['email'])) {
+			$value =  $user['email'];}
+	?>		
+    <div class="form__item <?=$classname;?>"> <!-- form__item--invalid -->
       <label for="email">E-mail*</label>
-      <input id="email" type="text" name="email" placeholder="Введите e-mail" required value="<?php if (isset($user['email'])) echo $user['email']; else echo ""; ?>">
-      <span class="form__error"><?php if (isset($errors['email'])) echo $errors['email'];?></span>
+      <input id="email" type="text" name="email" placeholder="Введите e-mail" required value=<?=$value;?>>
+      <span class="form__error"><?=$errortext;?></span>
     </div>
-    <div class="form__item form__item--last <?php if (isset($errors['password'])) echo 'form__item--invalid';?>">
+  	<?php 
+		$classname = "" ;
+		$errortext = "";
+		if (isset($errors['email'])) {
+			$classname = "form__item--invalid" ;
+			$errortext = $errors['password']; }
+	?>		
+    <div class="form__item form__item--last <?=$classname;?>">
       <label for="password">Пароль*</label>
-      <input id="password" type="text" name="password" placeholder="Введите пароль" required >
-      <span class="form__error"><?php if (isset($errors['password'])) echo $errors['password'];?></span>
+      <input id="password" type="password" name="password" placeholder="Введите пароль" required >
+      <span class="form__error"><?=$errortext;?></span>
     </div>
     <button type="submit" class="button">Войти</button>
   </form>
