@@ -15,26 +15,18 @@
 				<a href=<?="history.php?cur_cat_id=".$key;?>><?=$val?></a>
 			</li>
 		<?php endforeach; ?>			
-		<?php 
-			$curcat = $category;
-			if (isset($valcat)) {
-				$curcat = array();
-				$curcat[] = $valcat;
-			}
-			?>			
     </ul>
 </nav>
 <div class="container">
     <section class="lots">
-		<?php Foreach ($curcat as $keycat=> $valcat): ?> 
-			<h2>Просмотрено в категории <span>«<?=$valcat;?>»</span></h2>
-			<ul class="lots__list">
-				<?php foreach ($ads as $key=> $val):?> 
+		<h2>Просмотрено в категории <span>«<?=$valcat;?>»</span></h2>
+		<ul class="lots__list">
+			<?php foreach ($ads as $key=> $val):?> 
 				<?php if ($val['category'] == $valcat):?> 
-				<?=include_template('templates/_lot.php', ['lot' => $val, 'lot_id' => $key]);?>
+					<?=include_template('templates/_lot.php', ['lot' => $val, 'lot_id' => $key]);?>
 				<?php endif;?>
-				<?php endforeach;?>
-		<?php endforeach; ?>			
+			<?php endforeach;?>
+		</ul>
     </section>
     <ul class="pagination-list">
       <li class="pagination-item pagination-item-prev"><a>Назад</a></li>
