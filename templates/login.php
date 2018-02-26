@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>Вход</title>
-  <link href="css/normalize.min.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
-</head>
-<body>
-
 <main>
   <nav class="nav">
     <ul class="nav__list container">
 		<?php Foreach ($category as $key=> $val): ?> 
 			<li class="nav__item">
-				<a href=<?="all-lots.php?cur_cat_id=".$key;?>><?=$val?></a>
+				<a href=<?="all-lots.php?cur_cat_id=".$val['id'];?>><?=$val['name']?></a>
 			</li>
 		<?php endforeach; ?>			
     </ul>
@@ -38,7 +28,7 @@
   	<?php 
 		$classname = "" ;
 		$errortext = "";
-		if (isset($errors['email'])) {
+		if (isset($errors['password'])) {
 			$classname = "form__item--invalid" ;
 			$errortext = $errors['password']; }
 	?>		
@@ -50,6 +40,3 @@
     <button type="submit" class="button">Войти</button>
   </form>
 </main>
-
-</body>
-</html>
