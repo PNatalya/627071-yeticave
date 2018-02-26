@@ -7,7 +7,8 @@ USE yeticave;
 CREATE TABLE `Category` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`name` CHAR(50) NULL DEFAULT NULL,
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+	UNIQUE INDEX `name` (`name`)	
 );
 CREATE TABLE `Lots` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,

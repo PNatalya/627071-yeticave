@@ -1,18 +1,15 @@
 <nav class="nav">
     <ul class="nav__list container">
-		<?php if (!isset($cur_cat_id)) {
-				$cur_cat_id = 0;
-			}
-			$valcat = "";?>
-			<?php Foreach ($category as $key=> $val): ?> 
-			<?php 
+		<?php $valcat = "";
+			Foreach ($category as $key=> $val): ?> 
+				<?php 
 				$classname = "" ;
-				if ($cur_cat_id == $key) {
+				if ($cur_cat_id == $val['id']) {
 					$classname = "nav__item--current";
-					$valcat = $val;
+					$valcat = $val['name'];
 				} ?> 
 			<li class="nav__item <?=$classname;?> ">
-				<a href=<?="history.php?cur_cat_id=".$key;?>><?=$val?></a>
+				<a href=<?="history.php?cur_cat_id=".$val['id'];?>><?=$val['name']?></a>
 			</li>
 		<?php endforeach; ?>			
     </ul>
@@ -21,11 +18,9 @@
     <section class="lots">
 		<h2>Просмотрено в категории <span>«<?=$valcat;?>»</span></h2>
 		<ul class="lots__list">
-			<?php foreach ($ads as $key=> $val):?> 
-				<?php if ($val['category'] == $valcat):?> 
-					<?=include_template('templates/_lot.php', ['lot' => $val, 'lot_id' => $key]);?>
-				<?php endif;?>
-			<?php endforeach;?>
+		<?php foreach ($ads as $key=> $val):?> 
+			<?=include_template('_lot.php', ['lot' => $val]);?>
+		<?php endforeach;?>
 		</ul>
     </section>
     <ul class="pagination-list">

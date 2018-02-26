@@ -1,31 +1,39 @@
 <?php
-require_once('functions.php');
-require_once('data.php');
+require_once('init.php');
 
 $user = null;
 $user = auth_user($user);
 
+$sql = 'SELECT `id`, `name` FROM Category';
+$result = mysqli_query($link, $sql);
+if ($result) {
+	$category = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
 if ((!isset($user['is_auth'])) || (!$user['is_auth'])) {
 	http_response_code(403);
-/*	header( 'HTTP/1.1 403 Forbidden', true, 403 ); 
-	header('Location:./login.php');*/
-	echo("Доступ к добавлению лотов запрещен для незарегистрированных пользователей");
-	echo("<br> <a href='index.php'>На главную</a>");
-	exit(); 
+	$error = "Доступ к добавлению лотов запрещен для незарегистрированных пользователей";
+    $page_content = include_template('error.php', ['error' => $error]);
 }
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+else {
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$lot = $_POST;
 	$required_fields = ['name' => 's', 'category' => 'c', 'message' => 's', 'rate' => 'n', 'step' => 'n', 'date'  => 'd'];
-	$dict = ['name' => 'Наименование', 'category' => 'Категория', 'message' => 'Описание', 'rate' => 'Начальная цена', 'step' => 'Ставка', 'date'  => 'Дата окончания торгов', 'photo2'  => 'Изображение'];
 	$errors = [];
 	foreach ($required_fields as $key=> $val) {
 		if (empty($lot[$key])) {
 			$errors[$key] = 'Поле не заполнено';
 		}
 		if ($val == 'c') {
-			if (!in_array($lot[$key], $category)) {
-				$errors[$key] = 'Не выбрана категория'; 
+			$sql = 'SELECT `id` FROM Category where name="'.$lot[$key].'"';
+			$result = mysqli_query($link, $sql);
+			if ($result) {
+				$records_count = mysqli_num_rows($result);
+				if ($records_count < 1) {
+					$errors[$key] = 'Не выбрана категория'; 
+				}
+			}
+			else {
+				$errors[$key] = 'Ошибка подключения к таблице Категории'; 
 			}
 		}
 		if ($val == 'n') {
@@ -41,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 	
 	if ($_FILES['photo2']['size'] > 0)	{
-/*	if (isset($_FILES['photo2']['name'])) {*/
 		$tmp_name = $_FILES['photo2']['tmp_name'];
 		$path = $_FILES['photo2']['name'];				
 		$file_size = $_FILES['photo2']['size'];
@@ -61,17 +68,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 	
 	if (count($errors)) {
-		$page_content = include_template('templates/add.php', ['lot' => $lot, 'errors' => $errors, 'dict' => $dict, 'category'=> $category ]);
+		$page_content = include_template('add.php', ['lot' => $lot, 'errors' => $errors, 'category'=> $category ]);
 	}
 	else {
 		move_uploaded_file($tmp_name, 'img/' . $path);
 		$lot['img'] = 'img/' . $path;
-		$page_content = include_template('templates/lot.php', ['lot'=> $lot, 'user' => $user, 'category'=> $category ]);
+		
+		$sql = 'INSERT INTO lots (dt_add, name, description, img, rate, dt_close, user_id, category_id) 
+		values (NOW(), ?, ?, ?, ?, ?, 1, (Select  c.id from category c where c.name="'.$lot['category'].'" limit 1))';
+		
+		$stmt = db_get_prepare_stmt($link, $sql, [$lot['name'], $lot['message'], $lot['img'], $lot['rate'], $lot['date'] ]);
+        $result = mysqli_stmt_execute($stmt);
+		if ($result) {
+			$lot_id = mysqli_insert_id($link);
+			header("Location: lot.php?lot_id=" . $lot_id);
+		}
+		else {
+			$error = mysqli_error($link);
+			$page_content = include_template('error.php', ['error' => $error]);
+		}
 	}	
-	
 }
 else {
-	$page_content = include_template('templates/add.php', ['lot' => $lot, 'category'=> $category, 'Title'=> 'Добавление лота' ]);
+	$page_content = include_template('add.php', ['lot' => $lot, 'category'=> $category, 'Title'=> 'Добавление лота' ]);
 }
 
 
@@ -81,8 +100,14 @@ if ((!count($errors)) && (isset($lot['name']))) {
 else {
 	$Title= "Добавление лота";
 }
+}
+}
+else {
+	$error = mysqli_error($link);
+	$page_content = include_template('error.php', ['error' => $error]);
+}
 
-$layout_content = Include_Template('templates/layout.php', ['title' => $Title, 'user' => $user, 'content' => $page_content, 'category'=> $category ]);
+$layout_content = Include_Template('layout.php', ['title' => $Title, 'user' => $user, 'content' => $page_content, 'category'=> $category ]);
 
 print($layout_content);
 ?>

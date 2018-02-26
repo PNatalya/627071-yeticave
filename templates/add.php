@@ -2,7 +2,7 @@
     <ul class="nav__list container">
 		<?php Foreach ($category as $key=> $val): ?> 
 			<li class="nav__item">
-				<a href=<?="all-lots.php?cur_cat_id=".$key;?>><?=$val?></a>
+				<a href=<?="all-lots.php?cur_cat_id=".$val['id'];?>><?=$val['name']?></a>
 			</li>
 		<?php endforeach; ?>			
     </ul>
@@ -42,11 +42,11 @@
           <option>Выберите категорию</option>
 			<?php Foreach ($category as $key=> $val) {
 					$optsel ="";
-					if ($val == $value) {
+					if ($val['name'] == $value) {
 					$optsel = "selected";
 					}
 			?> 
-				<option <?=$optsel;?>><?=$val?></option>
+				<option <?=$optsel;?>><?=$val['name']?></option>
 			<?php } ?>			
         </select>
         <span class="form__error"><?=$errortext;?></span>

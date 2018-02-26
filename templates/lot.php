@@ -2,36 +2,26 @@
       <ul class="nav__list container">
 		<?php Foreach ($category as $key=> $val): ?> 
 			<li class="nav__item">
-				<a href=<?="all-lots.php?cur_cat_id=".$key;?>><?=$val?></a>
+				<a href=<?="all-lots.php?cur_cat_id=".$val['id'];?>><?=$val['name']?></a>
 			</li>
 		<?php endforeach; ?>			
     </ul>
   </nav>
   <section class="lot-item container">
-	<?php if (isset($lot)) :?>
     <h2><?=htmlspecialchars($lot['name']);?></h2>
     <div class="lot-item__content">
       <div class="lot-item__left">
         <div class="lot-item__image">
-          <img src=<?=$lot['img'];?> width="730" height="548" alt=<?=$lot['category'];?>>
+          <img src=<?=$lot['img'];?> width="730" height="548" alt=<?=htmlspecialchars($lot['name']);?>>
         </div>
         <p class="lot-item__category">Категория: <span><?=$lot['category'];?></span></p>
-        <p class="lot-item__description">Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив
-          снег
-          мощным щелчкоми четкими дугами. Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот
-          снаряд
-          отличной гибкостью и отзывчивостью, а симметричная геометрия в сочетании с классическим прогибом
-          кэмбер
-          позволит уверенно держать высокие скорости. А если к концу катального дня сил совсем не останется,
-          просто
-          посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла
-          равнодушным.</p>
+        <p class="lot-item__description"><?=htmlspecialchars($lot['description']);?></p>
       </div>
       <div class="lot-item__right">
 		<?php if ((isset($user['is_auth'])) && ($user['is_auth'])): ?> 
          <div class="lot-item__state">
           <div class="lot-item__timer timer">
-            <?=timelot((mktime(0, 0, 0, date("m")  , date("d")+1, date("Y"))));?>
+            <?=timelot($lot['dt_close']);?>
           </div>
           <div class="lot-item__cost-state">
             <div class="lot-item__rate">
@@ -108,8 +98,5 @@
         </div>
       </div>
     </div>
-	<?php else :?>
-		<h1 style="color black">Лот с этим ID не найден!<h1>
-	<?php endif ;?>
 	
   </section>
