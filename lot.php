@@ -1,7 +1,5 @@
 <?php
 require_once('init.php');
-/*require_once('functions.php');
-require_once('data.php');*/
 
 $user = null;
 $user = auth_user($user);
@@ -12,9 +10,14 @@ if (isset($_GET['lot_id'])) {
 	$sql = 'select l.`id`, l.`name`, l.`description`, l.`rate`, UNIX_TIMESTAMP(l.`dt_close`) as dt_close, l.`img`, c.`name` as `category`, l.rate as `price`
 		from lots l
 		JOIN category c ON l.category_id=c.id
-		where l.id ='.$lot_id;	
-	$result = mysqli_query($link, $sql);
-	if ($result) {
+		where l.id =?';	
+	$stmt = db_get_prepare_stmt($link, $sql, [$lot_id]);
+	if ((mysqli_stmt_execute($stmt) == !TRUE)
+		or (($result = mysqli_stmt_get_result($stmt)) === FALSE)
+		or (mysqli_stmt_close ($stmt) === FALSE)) {
+		$error = mysqli_error($link);
+		$page_content = include_template('error.php', ['error' => $error]);
+	} else {
 		$lot = mysqli_fetch_assoc($result);
 		if (!$lot) {
 			http_response_code(404);
@@ -47,10 +50,6 @@ if (isset($_GET['lot_id'])) {
 			$error = mysqli_error($link);
 			$page_content = include_template('error.php', ['error' => $error]);
 		}
-	}
-	else {
-		$error = mysqli_error($link);
-		$page_content = include_template('error.php', ['error' => $error]);
 	}
 }
 

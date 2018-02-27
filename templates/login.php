@@ -1,13 +1,3 @@
-<main>
-  <nav class="nav">
-    <ul class="nav__list container">
-		<?php Foreach ($category as $key=> $val): ?> 
-			<li class="nav__item">
-				<a href=<?="all-lots.php?cur_cat_id=".$val['id'];?>><?=$val['name']?></a>
-			</li>
-		<?php endforeach; ?>			
-    </ul>
-  </nav>
   <form class="form container <?php if(count($errors)) echo 'form--invalid'; ?>" action="login.php" method="post"> <!-- form--invalid -->
     <h2>Вход</h2>
   	<?php 
@@ -39,4 +29,3 @@
     </div>
     <button type="submit" class="button">Войти</button>
   </form>
-</main>

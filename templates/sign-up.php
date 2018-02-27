@@ -1,13 +1,3 @@
-<main>
-  <nav class="nav">
-    <ul class="nav__list container">
-		<?php Foreach ($category as $key=> $val): ?> 
-			<li class="nav__item">
-				<a href=<?="all-lots.php?cur_cat_id=".$val['id'];?>><?=$val['name']?></a>
-			</li>
-		<?php endforeach; ?>			
-    </ul>
-  </nav>
   <form class="form container <?php if(count($errors)) echo 'form--invalid'; ?> " action="sign-up.php" method="post" enctype='multipart/form-data'> <!-- form--invalid -->
     <h2>Регистрация нового аккаунта</h2>
 	  	<?php 
@@ -102,5 +92,5 @@
     <button type="submit" class="button">Зарегистрироваться</button>
     <a class="text-link" href="login.php">Уже есть аккаунт</a>
   </form>
-</main>
+
 

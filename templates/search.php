@@ -1,11 +1,11 @@
-<div class="container">
+  <div class="container">
     <section class="lots">
-		<h2>Просмотрено в категории <span>«<?=$cur_cat_name;?>»</span></h2>
-		<ul class="lots__list">
+      <h2>Результаты поиска по запросу «<span><?=$Union?></span>»</h2>
+      <ul class="lots__list">
 		<?php foreach ($ads as $key=> $val):?> 
 			<?=include_template('_lot.php', ['lot' => $val]);?>
 		<?php endforeach;?>
-		</ul>
+      </ul>
     </section>
     <ul class="pagination-list">
       <li class="pagination-item pagination-item-prev"><a>Назад</a></li>
@@ -15,4 +15,4 @@
       <li class="pagination-item"><a href="#">4</a></li>
       <li class="pagination-item pagination-item-next"><a href="#">Вперед</a></li>
     </ul>
-</div>
+  </div>

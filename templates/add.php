@@ -1,12 +1,3 @@
-<nav class="nav">
-    <ul class="nav__list container">
-		<?php Foreach ($category as $key=> $val): ?> 
-			<li class="nav__item">
-				<a href=<?="all-lots.php?cur_cat_id=".$val['id'];?>><?=$val['name']?></a>
-			</li>
-		<?php endforeach; ?>			
-    </ul>
-</nav>
 <form class="form form--add-lot container <?php if(count($errors)) echo 'form--invalid'; ?> " action="add.php" method="post" enctype='multipart/form-data'> <!-- form--invalid -->
     <h2>Добавление лота</h2>
     <div class="form__container-two">

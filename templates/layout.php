@@ -14,7 +14,7 @@
         <a class="main-header__logo" href='index.php'>
 			<img src="img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
         </a>
-        <form class="main-header__search" method="get" action="https://echo.htmlacademy.ru">
+        <form class="main-header__search" method="get" action="search.php">
             <input type="search" name="search" placeholder="Поиск лота">
             <input class="main-header__search-btn" type="submit" name="find" value="Найти">
         </form>
@@ -44,7 +44,25 @@
     </div>
 </header>
 
-<main class="container"><?= $content; ?></main>
+<main class="container">
+<?php if ($need_nav = isset($need_nav ) ? $need_nav : True):?> 
+<nav class="nav">
+    <ul class="nav__list container">
+		<?php foreach ($category as $key=> $val):?>
+		<?php $classname = "" ;
+				if ($cur_cat_id == $val['id']) {
+					$classname = "nav__item--current";
+					$valcat = $val['name'];
+				} ?> 
+			<li class="nav__item <?=$classname;?>">
+				<a href=<?="all-lots.php?cur_cat_id=".$val['id'];?>><?=$val['name']?></a>
+			</li>
+		<?php endforeach; ?>			
+    </ul>
+</nav>
+<?php endif; ?>
+<?= $content; ?>
+</main>
 
 <footer class="main-footer">
     <nav class="nav">
