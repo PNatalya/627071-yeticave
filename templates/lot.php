@@ -1,12 +1,3 @@
-  <nav class="nav">
-      <ul class="nav__list container">
-		<?php Foreach ($category as $key=> $val): ?> 
-			<li class="nav__item">
-				<a href=<?="all-lots.php?cur_cat_id=".$val['id'];?>><?=$val['name']?></a>
-			</li>
-		<?php endforeach; ?>			
-    </ul>
-  </nav>
   <section class="lot-item container">
     <h2><?=htmlspecialchars($lot['name']);?></h2>
     <div class="lot-item__content">

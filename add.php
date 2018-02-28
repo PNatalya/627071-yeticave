@@ -24,16 +24,18 @@ else {
 			$errors[$key] = 'Поле не заполнено';
 		}
 		if ($val == 'c') {
-			$sql = 'SELECT `id` FROM Category where name="'.$lot[$key].'"';
-			$result = mysqli_query($link, $sql);
-			if ($result) {
+			$sql = 'SELECT `id` FROM Category where name=?';
+			$stmt = db_get_prepare_stmt($link, $sql, [$lot[$key]]);
+			if ((mysqli_stmt_execute($stmt) == !TRUE)
+			or (($result = mysqli_stmt_get_result($stmt)) === FALSE)
+			or (mysqli_stmt_close ($stmt) === FALSE)) {
+				$error = mysqli_error($link);
+				$errors[$key] = $error; 
+			} else {
 				$records_count = mysqli_num_rows($result);
 				if ($records_count < 1) {
 					$errors[$key] = 'Не выбрана категория'; 
 				}
-			}
-			else {
-				$errors[$key] = 'Ошибка подключения к таблице Категории'; 
 			}
 		}
 		if ($val == 'n') {

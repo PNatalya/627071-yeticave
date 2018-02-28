@@ -25,7 +25,6 @@ if ($result) {
 				}
 			}	
 		}
-		
 		if ($_FILES['photo2']['size'] > 0)	{
 			$tmp_name = $_FILES['photo2']['tmp_name'];
 			$path = $_FILES['photo2']['name'];				
@@ -40,15 +39,19 @@ if ($result) {
 				$errors['photo2'] = "Максимальный размер файла: 200Кб";
 			}
 		}
-
 		if (count($errors)) {
 			$page_content = include_template('sign-up.php', ['user' => $userlog, 'errors' => $errors, 'category'=> $category ]);
 		}
 		else {
-			$sql = "SELECT id, name, password, email FROM Users
-				where email = '".$userlog['email']."'";
-			$result = mysqli_query($link, $sql);
-			if ($result) {
+			$sql = 'SELECT id, name, password, email FROM Users
+				where email = ?';
+			$stmt = db_get_prepare_stmt($link, $sql, [$userlog['email']]);
+			if ((mysqli_stmt_execute($stmt) == !TRUE)
+			or (($result = mysqli_stmt_get_result($stmt)) === FALSE)
+			or (mysqli_stmt_close ($stmt) === FALSE)) {
+				$error = mysqli_error($link);
+				$page_content = include_template('error.php', ['error' => $error]);
+			} else {
 				$records_count = mysqli_num_rows($result);
 				if ($records_count > 0) {
 					$errors['email'] = 'Пользователь с таким E-mail уже существует!';
@@ -65,7 +68,8 @@ if ($result) {
 					$sql = 'INSERT INTO Users (dt_add, email, name, password, contacts, avatar_path )
 					values (NOW(), ?, ?, ?, ?, ?)';
 					$userlog['password'] = password_hash($userlog['password'], PASSWORD_DEFAULT);
-					$stmt = db_get_prepare_stmt($link, $sql,[$userlog['email'], $userlog['name'], $userlog['password'], $userlog['message'], $userlog['img'] ]);
+					$safe_email = mysqli_real_escape_string($link, $userlog['email']);
+					$stmt = db_get_prepare_stmt($link, $sql,[$safe_email, $userlog['name'], $userlog['password'], $userlog['message'], $userlog['img'] ]);
 					$result = mysqli_stmt_execute($stmt);
 					if ($result) {
 						header("Location: login.php");
@@ -76,11 +80,6 @@ if ($result) {
 					}
 				}
 			}
-			else {
-				$error = mysqli_error($link);
-				$page_content = include_template('error.php', ['error' => $error]);
-			}
-		
 		}	
 	}
 	else {

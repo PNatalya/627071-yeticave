@@ -1,11 +1,5 @@
 <?php
 require_once('init.php');
-/*
-require_once('functions.php');
-require_once('data.php');
-require_once('userdata.php');
-*/
-
 
 $sql = 'SELECT `id`, `name` FROM Category';
 $result = mysqli_query($link, $sql);
@@ -31,9 +25,15 @@ if ($result) {
 	
 		if (!count($errors)) {
 			$sql = "SELECT id, name, password, email, avatar_path FROM Users
-				where email = '".$userlog['email']."'";
-			$result = mysqli_query($link, $sql);
-			if ($result) {
+				where email = ?";
+			$safe_email = mysqli_real_escape_string($link, $userlog['email']);
+			$stmt = db_get_prepare_stmt($link, $sql, [$safe_email]);
+			if ((mysqli_stmt_execute($stmt) == !TRUE)
+			or (($result = mysqli_stmt_get_result($stmt)) === FALSE)
+			or (mysqli_stmt_close ($stmt) === FALSE)) {
+				$error = mysqli_error($link);
+				$page_content = include_template('error.php', ['error' => $error]);
+			} else {
 				$records_count = mysqli_num_rows($result);
 				if ($records_count > 0) {
 					$user = mysqli_fetch_assoc($result);
@@ -55,11 +55,6 @@ if ($result) {
 					exit();
 				}
 			}
-			else {
-				$error = mysqli_error($link);
-				$page_content = include_template('error.php', ['error' => $error]);
-			}
-		
 		}	
 		else {
 			$page_content = include_template('login.php', ['user'=> $userlog, 'category'=> $category, 'errors' => $errors, 'dict' => $dict]);
@@ -69,7 +64,7 @@ if ($result) {
 		if (isset($_SESSION['user'])) {
 			$user = null;
 			$user = auth_user($user);
-			$sql = 'select l.`id`, l.`name`, l.`rate`, UNIX_TIMESTAMP(l.`dt_close`) as dt_close, l.`img`, c.`name` as `category`, l.rate as `price`
+			$sql = 'select l.`id`, l.`name`, l.`rate` as `price`, UNIX_TIMESTAMP(l.`dt_close`) as dt_close, l.`img`, c.`name` as `category` 
 				from lots l
 				JOIN category c ON l.category_id=c.id
 				order by dt_add desc';	

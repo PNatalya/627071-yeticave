@@ -12,7 +12,7 @@ function auth_user($user) {
 	return $user;
 }
 
-
+/*
 function search_user($email, $users) {
 	$result = null;
 	foreach ($users as $user) {
@@ -23,7 +23,7 @@ function search_user($email, $users) {
 	}
 	return $result;
 }
-
+*/
 function format_sum($price) {
 	$price = ceil($price);
 	If ($price >= 1000) {
