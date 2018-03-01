@@ -10,4 +10,5 @@ mysqli_set_charset($link, "utf8");
 ini_set('display_errors', 'On');
 
 $category = [];
+$page_items = 2;
 ?>

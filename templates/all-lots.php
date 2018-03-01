@@ -7,8 +7,5 @@
 		<?php endforeach;?>
 		</ul>
     </section>
-	<?php
-		$cur_page = $pages_count = 3;
-	?>
-	<?/*=include_template('_pagination.php', ['pages' => $pages, 'pages_count' => $pages_count, 'cur_page' => $cur_page]);*/?>
+	<?=include_template('_pagination.php', ['pages' => $pages, 'pages_count' => $pages_count, 'cur_page' => $cur_page, 'par_url' => $par_url]);?>
 </div>

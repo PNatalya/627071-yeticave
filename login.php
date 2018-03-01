@@ -67,6 +67,7 @@ if ($result) {
 			$sql = 'select l.`id`, l.`name`, l.`rate` as `price`, UNIX_TIMESTAMP(l.`dt_close`) as dt_close, l.`img`, c.`name` as `category` 
 				from lots l
 				JOIN category c ON l.category_id=c.id
+				where l.dt_close > NOW()
 				order by dt_add desc';	
 			$result = mysqli_query($link, $sql);
 			if ($result) {

@@ -17,6 +17,7 @@ else {
 		$sql = 'select l.`id`, l.`name`, UNIX_TIMESTAMP(l.`dt_close`) as dt_close, l.`img`, c.`name` as `category`, l.`rate` as `price`
 			from lots l
 			JOIN category c ON l.category_id=c.id
+			where l.dt_close > NOW()
 			order by dt_add desc LIMIT 9';	
 		$result = mysqli_query($link, $sql);
 		if ($result) {

@@ -6,10 +6,35 @@ function auth_user($user) {
 	$user = null;
 	if (isset($_SESSION['user'])) {
 		$user['is_auth'] = True;
+		$user['user_id'] = isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : '';
 		$user['user_name'] = isset($_SESSION['user']['name']) ? $_SESSION['user']['name'] : '';
 		$user['user_avatar'] = isset($_SESSION['user']['avatar_path']) ? $_SESSION['user']['avatar_path'] : '';
 	}
 	return $user;
+}
+
+function passed_time($dt){
+	$dt_dif = time() - $dt;	
+	$minutes_ago = floor($dt_dif/60);
+	$hour_ago = floor($dt_dif/3600);
+	$tm = date('H:i', $dt);
+	$d = date('d', $dt);
+	$m = date('m', $dt);
+	$y = date('y', $dt);
+
+	if ($hour_ago <1 ) {
+		return sprintf('%s мин. назад', $minutes_ago);}
+	elseif ($hour_ago == 1 ) {
+		return sprintf('%s час назад', floor($hour_ago));}
+
+	elseif ($hour_ago > 1 && $hour_ago <= 4) {
+		return sprintf('%s часа назад', floor($hour_ago));}
+	 
+	elseif($d.$m.$y == date('dmY',time())) {
+		return "Сегодня в $tm";}
+	elseif($d.$m.$y == date('dmY', strtotime('-1 day'))){
+		return "Вчера в $tm";}
+	else return "$d.$m.$y в $tm ";
 }
 
 /*
