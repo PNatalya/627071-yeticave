@@ -2,7 +2,7 @@
 require_once('init.php');
 
 $user = null;
-$user = auth_user($user);
+$user = auth_user($user,$link);
 
 $sql = 'SELECT `id`, `name` FROM Category';
 $result = mysqli_query($link, $sql);
@@ -76,10 +76,10 @@ else {
 		move_uploaded_file($tmp_name, 'img/' . $path);
 		$lot['img'] = 'img/' . $path;
 		
-		$sql = 'INSERT INTO lots (dt_add, name, description, img, rate, dt_close, user_id, category_id) 
-		values (NOW(), ?, ?, ?, ?, ?, 1, (Select  c.id from category c where c.name="'.$lot['category'].'" limit 1))';
+		$sql = 'INSERT INTO lots (dt_add, name, description, img, rate, step, dt_close, user_id, category_id) 
+		values (NOW(), ?, ?, ?, ?, ?, ?, ?, (Select  c.id from category c where c.name="'.$lot['category'].'" limit 1))';
 		
-		$stmt = db_get_prepare_stmt($link, $sql, [$lot['name'], $lot['message'], $lot['img'], $lot['rate'], $lot['date'] ]);
+		$stmt = db_get_prepare_stmt($link, $sql, [$lot['name'], $lot['message'], $lot['img'], $lot['rate'], $lot['step'], $lot['date'], $user['user_id'] ]);
         $result = mysqli_stmt_execute($stmt);
 		if ($result) {
 			$lot_id = mysqli_insert_id($link);

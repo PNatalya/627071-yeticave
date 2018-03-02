@@ -2,14 +2,17 @@
 require_once('init.php');
 
 $Title='Главная';
-$user = null;
-$user = auth_user($user);
 
 if (!$link) {
     $error = mysqli_connect_error();
     $page_content = include_template('error.php', ['error' => $error]);
 }
 else {
+	$user = null;
+	$user = auth_user($user,$link);
+	
+	$result = set_winner($link);
+
     $sql = 'SELECT `id`, `name` FROM Category';
     $result = mysqli_query($link, $sql);
     if ($result) {
