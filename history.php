@@ -24,7 +24,7 @@ if ($result) {
 		$sql = 'select l.`id`, l.`name`, l.`rate`, UNIX_TIMESTAMP(l.`dt_close`) as dt_close, l.`img`, c.`name` as `category`, l.rate as `price`
 			from lots l
 			JOIN category c ON l.category_id=c.id
-			where  c.id=? and l.id in ('. implode(',', array_map('intval', $array_value)) . ')';
+			where l.dt_close > NOW() and c.id=? and l.id in ('. implode(',', array_map('intval', $array_value)) . ')';
 		$stmt = db_get_prepare_stmt($link, $sql, [$cur_cat_id ]);
 		if ((mysqli_stmt_execute($stmt) == !TRUE)
 			or (($result = mysqli_stmt_get_result($stmt)) === FALSE)
