@@ -19,20 +19,20 @@ INSERT INTO Users (dt_add, name, password, avatar_path, contacts, email) values
 /*Заполнение таблицы лоты*/
 
 INSERT INTO lots (dt_add, name, description, img, rate, dt_close, step, user_id, category_id) values
-(CURDATE()-1, '2014 Rossignol District Snowboard','', 'img/lot-1.jpg', 10999, '2018-7-04',12000, 1, 1),
-(CURDATE()-2, 'DC Ply Mens 2016/2017 Snowboard','', 'img/lot-2.jpg', 159999, '2018-7-04',12000, 1, 1),
-(CURDATE()-3, 'Крепления Union Contact Pro 2015 года размер L/XL','', 'img/lot-3.jpg', 8000, '2018-7-04',12000, 2, 2),
-(CURDATE()-4, 'Ботинки для сноуборда DC Mutiny Charocal','', 'img/lot-4.jpg', 10999, '2018-7-04',12000, 2, 3),
-(CURDATE()-5, 'Куртка для сноуборда DC Mutiny Charocal','', 'img/lot-5.jpg', 7500, '2018-7-04',12000, 3, 4),
-(CURDATE()-6, 'Маска Oakley Canopy','', 'img/lot-6.jpg', 5400, '2018-7-04',12000, 3, 6);
+(DATE_SUB(CURDATE(),INTERVAL 1 DAY), '2014 Rossignol District Snowboard','', 'img/lot-1.jpg', 10999, '2018-7-04',12000, 1, 1),
+(DATE_SUB(CURDATE(),INTERVAL 2 DAY), 'DC Ply Mens 2016/2017 Snowboard','', 'img/lot-2.jpg', 159999, '2018-7-04',12000, 1, 1),
+(DATE_SUB(CURDATE(),INTERVAL 3 DAY), 'Крепления Union Contact Pro 2015 года размер L/XL','', 'img/lot-3.jpg', 8000, '2018-7-04',12000, 2, 2),
+(DATE_SUB(CURDATE(),INTERVAL 4 DAY), 'Ботинки для сноуборда DC Mutiny Charocal','', 'img/lot-4.jpg', 10999, '2018-7-04',12000, 2, 3),
+(DATE_SUB(CURDATE(),INTERVAL 5 DAY), 'Куртка для сноуборда DC Mutiny Charocal','', 'img/lot-5.jpg', 7500, '2018-7-04',12000, 3, 4),
+(DATE_SUB(CURDATE(),INTERVAL 6 DAY), 'Маска Oakley Canopy','', 'img/lot-6.jpg', 5400, '2018-7-04',12000, 3, 6);
 
 /*Заполнение таблицы ставки*/
 
 INSERT INTO rates (dt_add, summa, lot_id, user_id) values
-(DATE_ADD(CURDATE(), INTERVAL -Rand(50) MINUTE), 11500, 1, 1),
-(DATE_ADD(CURDATE(), INTERVAL -Rand(18) HOUR), 11000, 1, 2),
-(DATE_ADD(CURDATE(), INTERVAL -FLOOR(RAND()*(50-25+1))+25 HOUR), 10500, 1, 3),
-(DATE_ADD(CURDATE(), INTERVAL -7 DAY), 10000, 1, 4);
+(DATE_SUB(CURDATE(), INTERVAL Rand(50) MINUTE), 11500, 1, 1),
+(DATE_SUB(CURDATE(), INTERVAL Rand(18) HOUR), 11000, 1, 2),
+(DATE_SUB(CURDATE(), INTERVAL FLOOR(RAND()*(50-25+1))+25 HOUR), 10500, 1, 3),
+(DATE_SUB(CURDATE(), INTERVAL 7 DAY), 10000, 1, 4);
 
 /*получить все категории;*/
 select * from category;

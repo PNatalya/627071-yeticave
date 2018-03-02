@@ -2,7 +2,7 @@
 require_once('init.php');
 
 $user = null;
-$user = auth_user($user);
+$user = auth_user($user,$link);
 
 $sql = 'SELECT `id`, `name` FROM Category';
 $result = mysqli_query($link, $sql);
@@ -13,12 +13,12 @@ if ($result) {
 	if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 		$cur_cat_id = intval($_GET['cur_cat_id'] ?? 1);
 		
-		$sql = 'SELECT `id`, `name` FROM Category where id='.intval($cur_cat_id);
+		$sql = 'SELECT `id`, `name` FROM Category where id='.$cur_cat_id;
 		$result = mysqli_query($link, $sql);
 		$cur_cat_name = mysqli_fetch_assoc($result)['name'];
 		
 		$cur_page = intval($_GET['page'] ?? 1);
-		$result = mysqli_query($link, "SELECT COUNT(*) as cnt FROM lots where dt_close > NOW() and category_id=".intval($cur_cat_id));
+		$result = mysqli_query($link, "SELECT COUNT(*) as cnt FROM lots where dt_close > NOW() and category_id=".$cur_cat_id);
 		$items_count = mysqli_fetch_assoc($result)['cnt'];
 		$pages_count = ceil($items_count / $page_items);
 		$offset = ($cur_page - 1) * $page_items;

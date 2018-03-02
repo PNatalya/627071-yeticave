@@ -2,7 +2,7 @@
 require_once('init.php');
 
 $user = null;
-$user = auth_user($user);
+$user = auth_user($user,$link);
 
 $lot = null;
 
@@ -49,8 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				header('Location:./404.php');
 				exit(); 
 			}
-			else {
-			}
 			if ($res['cost'] < $lot['minrate']) {
 				$errors['cost'] = 'Указана неверная ставка. Минимальная ставка '.$lot['minrate'] ;
 			}
@@ -83,7 +81,8 @@ if (isset($_GET['lot_id'])) {
 	if ((mysqli_stmt_execute($stmt) == !TRUE)
 		or (($result = mysqli_stmt_get_result($stmt)) === FALSE)
 		or (mysqli_stmt_close ($stmt) === FALSE)) {
-			
+			$error = mysqli_error($link);
+			$page_content = include_template('error.php', ['error' => $error]);
 		}
 	else {
 		$rates_count = mysqli_fetch_assoc($result)['cnt'];
@@ -125,11 +124,8 @@ if (isset($_GET['lot_id'])) {
 			}
 			$value = json_encode($array_value);
 			setcookie($name, $value, $expire, $path);
-		}	
 			$Title=htmlspecialchars($lot['name']);
-			
 			$show_rate = ($lot['dt_close'] > (new DateTime())) && ($user['user_id'] !== $lot['user_id']) && ($rates_count==0);  
-
 			$sql = "SELECT UNIX_TIMESTAMP(r.dt_add) as dt_add, summa, u.name FROM rates r
 				LEFT JOIN users u ON u.id = r.user_id
 				WHERE lot_id=? ORDER BY dt_add DESC LIMIT 10";
@@ -146,10 +142,10 @@ if (isset($_GET['lot_id'])) {
 				'rates' => $rates  
 				];
 			$page_content = Include_Template('lot.php', $tpl_data);
+		}	
 	  }
 	}
 }
-
 else {
 	$error = mysqli_error($link);
 	$page_content = include_template('error.php', ['error' => $error]);

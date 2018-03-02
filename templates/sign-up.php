@@ -10,7 +10,6 @@
 		if (isset($user['email'])) {
 			$value =  $user['email'];}
 	?>		
-
     <div class="form__item <?=$classname;?>"> <!-- form__item--invalid -->
       <label for="email">E-mail*</label>
       <input id="email" type="text" name="email" placeholder="Введите e-mail" required value=<?=$value;?>>

@@ -31,8 +31,8 @@
 					$classname = "form__item--invalid" ;
 					$classname1 = 'class="form__error"' ;
 					$errortext = $errors['cost']; }
-				if (isset($rescost)) {
-					$value =  $rescost;}
+				if (isset($cost)) {
+					$value =  $cost;}
 			  ?>		
             <p class="lot-item__form-item  <?=$classname;?> ">
               <label <?=$classname1;?> for="cost">Ваша ставка <?=$errortext;?></label>

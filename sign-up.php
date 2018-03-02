@@ -3,7 +3,7 @@ require_once('init.php');
 
 $Title='Регистрация';
 $user = null;
-$user = auth_user($user);
+$user = auth_user($user,$link);
 
 $sql = 'SELECT `id`, `name` FROM Category';
 $result = mysqli_query($link, $sql);
@@ -45,7 +45,8 @@ if ($result) {
 		else {
 			$sql = 'SELECT id, name, password, email FROM Users
 				where email = ?';
-			$stmt = db_get_prepare_stmt($link, $sql, [$userlog['email']]);
+			$safe_email = mysqli_real_escape_string($link, $userlog['email']);
+			$stmt = db_get_prepare_stmt($link, $sql, [$safe_email]);
 			if ((mysqli_stmt_execute($stmt) == !TRUE)
 			or (($result = mysqli_stmt_get_result($stmt)) === FALSE)
 			or (mysqli_stmt_close ($stmt) === FALSE)) {
@@ -68,7 +69,6 @@ if ($result) {
 					$sql = 'INSERT INTO Users (dt_add, email, name, password, contacts, avatar_path )
 					values (NOW(), ?, ?, ?, ?, ?)';
 					$userlog['password'] = password_hash($userlog['password'], PASSWORD_DEFAULT);
-					$safe_email = mysqli_real_escape_string($link, $userlog['email']);
 					$stmt = db_get_prepare_stmt($link, $sql,[$safe_email, $userlog['name'], $userlog['password'], $userlog['message'], $userlog['img'] ]);
 					$result = mysqli_stmt_execute($stmt);
 					if ($result) {

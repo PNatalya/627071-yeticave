@@ -25,8 +25,10 @@ CREATE TABLE `Lots` (
 	PRIMARY KEY (`id`),
 	INDEX `user_id` (`user_id`),
 	INDEX `winner_id` (`winner_id`),
-	INDEX `category_id` (`category_id`)
+	INDEX `category_id` (`category_id`),
+	FULLTEXT INDEX `lot_ft_search` (`name`, `description`)
 );
+
 CREATE TABLE `Rates` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`dt_add` DATETIME  NOT NULL,
