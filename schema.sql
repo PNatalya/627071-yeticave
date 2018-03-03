@@ -4,13 +4,13 @@ DEFAULT COLLATE ='utf8_general_ci';
 
 USE yeticave;
 
-CREATE TABLE `Category` (
+CREATE TABLE `category` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`name` CHAR(50) NOT NULL,
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX `name` (`name`)	
 );
-CREATE TABLE `Lots` (
+CREATE TABLE `lots` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`dt_add` DATETIME NOT NULL,
 	`name` CHAR(255) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE `Lots` (
 	FULLTEXT INDEX `lot_ft_search` (`name`, `description`)
 );
 
-CREATE TABLE `Rates` (
+CREATE TABLE `rates` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`dt_add` DATETIME  NOT NULL,
 	`summa` FLOAT  NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE `Rates` (
 	INDEX `user_id` (`user_id`)
 );
 
-CREATE TABLE `Users` (
+CREATE TABLE `users` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`dt_add` DATETIME NULL DEFAULT NULL,
 	`name` CHAR(255) NOT NULL,

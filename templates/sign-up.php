@@ -27,7 +27,7 @@
 	?>		
     <div class="form__item <?=$classname;?>">
       <label for="password">Пароль*</label>
-      <input id="password" type="text" name="password" placeholder="Введите пароль" required value=<?=$value;?>>
+      <input id="password" type="password" name="password" placeholder="Введите пароль" required value=<?=$value;?>>
       <span class="form__error"><?=$errortext;?></span>
     </div>
   	<?php 

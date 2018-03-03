@@ -19,8 +19,6 @@ function send_mail($email, $user_name, $lot_name, $price) {
 	$message = ' <p>Поздравляем! '.$user_name.'! Вы победили в аукционе!</p> </br> <b>Лот '.$lot_name.' </b> </br><i>Цена '.$price.' </i> </br>';
 
 	$headers  = "Content-type: text/html; charset=windows-1251 \r\n"; 
-	$headers .= "From: От кого письмо <from@example.com>\r\n"; 
-	$headers .= "Reply-To: reply-to@example.com\r\n"; 
 
 	mail($email, $subject, $message, $headers); 
 	
@@ -34,18 +32,18 @@ function send_mail($email, $user_name, $lot_name, $price) {
  * @return 
  */
 function set_winner($link) {
-    $sql = 'select l.id, l.name
-			from lots l
-			where l.winner_id is null and l.dt_close <= NOW() ';
+    $sql = 'SELECT l.id, l.name
+			FROM lots l
+			WHERE l.winner_id is null and l.dt_close <= NOW() ';
 		$result = mysqli_query($link, $sql);
 		if ($result) {
 			$win_lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
 		foreach ($win_lots as $win_lot) {
 			$lot_id = $win_lot['id'];
 			$lot_name = $win_lot['name'];
-			$sql = 'select r.summa, r.lot_id, u.id,  u.name, u.email 
-				from rates r, users u
-				where lot_id ='.$lot_id.'
+			$sql = 'SELECT r.summa, r.lot_id, u.id,  u.name, u.email 
+				FROM rates r, users u
+				WHERE lot_id ='.$lot_id.'
 				and u.id = r.user_id
 				order by summa desc limit 1 ';
 			$result = mysqli_query($link, $sql);
@@ -56,7 +54,7 @@ function set_winner($link) {
 				$win_email = $win_user['email'];
 				$win_sum = $win_user['summa'];
 
-				$sql = 'update lots set winner_id='.$win_id .' where id ='.$lot_id ; 
+				$sql = 'UPDATE lots SET winner_id='.$win_id .' WHERE id ='.$lot_id ; 
 		
 				$stmt = db_get_prepare_stmt($link, $sql, [$lot['name'], $lot['message'], $lot['img'], $lot['rate'], $lot['step'], $lot['date'], $user['user_id'] ]);
 				$result = mysqli_stmt_execute($stmt);
@@ -81,14 +79,14 @@ function auth_user($user, $link) {
 	$user = null;
 	if (isset($_SESSION['user'])) {
 		$safe_email = mysqli_real_escape_string($link, (isset($_SESSION['user']['email']) ? $_SESSION['user']['email'] : ''));
-		$result = mysqli_query($link, "SELECT COUNT(*) as cnt FROM users where email='".$safe_email."'");
+		$result = mysqli_query($link, 'SELECT COUNT(*) as cnt FROM users WHERE email="'.$safe_email.'"');
 		$user_count = mysqli_fetch_assoc($result)['cnt'];
 
 		if ($user_count == 0) {
 			$_SESSION=[];
 		}
 		else {
-			$user['is_auth'] = True;
+			$user['is_auth'] = TRUE;
 			$user['user_id'] = isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : '';
 			$user['user_name'] = isset($_SESSION['user']['name']) ? $_SESSION['user']['name'] : '';
 			$user['user_avatar'] = isset($_SESSION['user']['avatar_path']) ? $_SESSION['user']['avatar_path'] : '';
@@ -173,7 +171,7 @@ function timelot($timelot) {
  * @return $result Сонтейнер с результатом файла
  */
 
-function Include_Template($filename, $arr = array()) {
+function include_template($filename, $arr = array()) {
     $filename = 'templates/' . $filename;
     $result = '';	
 	if (file_exists($filename)) {	

@@ -1,7 +1,7 @@
 <?php
 require_once('init.php');
 
-$sql = 'SELECT `id`, `name` FROM Category';
+$sql = 'SELECT id, name FROM category';
 $result = mysqli_query($link, $sql);
 if ($result) {
 	$category = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -24,8 +24,8 @@ if ($result) {
 		}
 	
 		if (!count($errors)) {
-			$sql = "SELECT id, name, password, email, avatar_path FROM Users
-				where email = ?";
+			$sql = 'SELECT id, name, password, email, avatar_path FROM Users
+				WHERE email = ?';
 			$safe_email = mysqli_real_escape_string($link, $userlog['email']);
 			$stmt = db_get_prepare_stmt($link, $sql, [$safe_email]);
 			if ((mysqli_stmt_execute($stmt) == !TRUE)
@@ -64,11 +64,11 @@ if ($result) {
 		if (isset($_SESSION['user'])) {
 			$user = null;
 			$user = auth_user($user);
-			$sql = 'select l.`id`, l.`name`, l.`rate` as `price`, UNIX_TIMESTAMP(l.`dt_close`) as dt_close, l.`img`, c.`name` as `category` 
-				from lots l
+			$sql = 'SELECT l.id, l.name, l.rate as `price`, UNIX_TIMESTAMP(l.dt_close) as dt_close, l.img, c.name as category 
+				FROM lots l
 				JOIN category c ON l.category_id=c.id
-				where l.dt_close > NOW()
-				order by dt_add desc';	
+				WHERE l.dt_close > NOW()
+				ORDER BY dt_add desc';	
 			$result = mysqli_query($link, $sql);
 			if ($result) {
 				$ads = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -89,8 +89,8 @@ else {
 	$page_content = include_template('error.php', ['error' => $error]);
 }
 
-$Title="Аутентификация";
-$layout_content = Include_Template('layout.php', ['title' => $Title, 'user' => $user, 'content' => $page_content, 'category'=> $category ]);
+$title="Аутентификация";
+$layout_content = include_template('layout.php', ['title' => $title, 'user' => $user, 'content' => $page_content, 'category'=> $category ]);
 print($layout_content);
 
 ?>

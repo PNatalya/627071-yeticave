@@ -31,10 +31,10 @@
         <label for="category">Категория</label>
         <select id="category" name="category" required>
           <option>Выберите категорию</option>
-			<?php Foreach ($category as $key=> $val) {
+			<?php foreach ($category as $key=> $val) {
 					$optsel ="";
 					if ($val['name'] == $value) {
-					$optsel = "selected";
+						$optsel = "selected";
 					}
 			?> 
 				<option <?=$optsel;?>><?=$val['name']?></option>
@@ -63,12 +63,12 @@
 		$classname1 = "" ;
 		if  ((isset($lot['img'])) && (!isset($errors['photo2'])))  {
 			$classname ="form__item--uploaded";}
-		  $imgname = isset($lot['img']) ? $lot['img'] : ""; 
-		  $errortext = "";
-		  if (isset($errors['photo2'])) {
+		$imgname = isset($lot['img']) ? $lot['img'] : ""; 
+		$errortext = "";
+		if (isset($errors['photo2'])) {
 			$errortext = $errors['photo2']; 
 			$classname1 = "form__item--invalid" ;}
-		  ?>
+	?>
     <div class="form__item form__item--file <?=$classname;?> <?=$classname1;?> "> <!-- form__item--uploaded -->
       <label>Изображение</label>
       <div class="preview">

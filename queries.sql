@@ -1,6 +1,6 @@
 /*Заполнение таблицы категорий*/
 
-INSERT INTO Category(name)
+INSERT INTO category(name)
 values ("Доски и лыжи"),
 ("Крепления"),
 ("Ботинки"),
@@ -10,7 +10,7 @@ values ("Доски и лыжи"),
 
 /*Заполнение таблицы пользователи*/
 
-INSERT INTO Users (dt_add, name, password, avatar_path, contacts, email) values
+INSERT INTO users (dt_add, name, password, avatar_path, contacts, email) values
 (CURDATE(), 'Игнат','$2y$10$OqvsKHQwr0Wk6FMZDoHo1uHoXd4UdxJG/5UDtUiie00XaxMHrW8ka', 'img/avatar.jpg', '222-333-222', 'ignat.v@gmail.com'),
 (CURDATE(), 'Леночка','$2y$10$bWtSjUhwgggtxrnJ7rxmIe63ABubHQs0AS0hgnOo41IEdMHkYoSVa', 'img/avatar.jpg', '222-333-222', 'kitty_93@li.ru'),
 (CURDATE(), 'Руслан','$2y$10$2OxpEH7narYpkOT1H5cApezuzh10tZEEQ2axgFOaKW.55LxIJBgWW', 'img/avatar.jpg', '222-333-222', 'warrior07@mail.ru');

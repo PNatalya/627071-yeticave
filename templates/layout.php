@@ -45,7 +45,7 @@
 </header>
 
 <main class="container">
-<?php if ($need_nav = isset($need_nav ) ? $need_nav : True):?> 
+<?php if ($need_nav = isset($need_nav ) ? $need_nav : true):?> 
 <nav class="nav">
     <ul class="nav__list container">
 		<?php foreach ($category as $key=> $val):?>
@@ -67,7 +67,7 @@
 <footer class="main-footer">
     <nav class="nav">
         <ul class="nav__list container">
-			<?php Foreach ($category as $key=> $val): ?> 
+			<?php foreach ($category as $key=> $val): ?> 
 				<li class="nav__item">
 					<a href=<?=$url="all-lots.php?cur_cat_id=".$val['id'];?>><?=$val['name']?></a>
 				</li>

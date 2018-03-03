@@ -1,6 +1,6 @@
   <div class="container">
     <section class="lots">
-      <h2>Результаты поиска по запросу «<span><?=htmlspecialchars($Union)?></span>»</h2>
+      <h2>Результаты поиска по запросу «<span><?=htmlspecialchars($search)?></span>»</h2>
       <ul class="lots__list">
 		<?php foreach ($ads as $key=> $val):?> 
 			<?=include_template('_lot.php', ['lot' => $val]);?>
